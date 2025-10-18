@@ -1,0 +1,19 @@
+$bg: $background;
+$bga: rgba($bg, 0.9);
+
+.panel_window {
+    background-color: transparent;
+}
+
+.panel-container {
+    background-color: transparent;
+}
+
+.inside-container {
+    background-color: $bga;
+    border-radius: 40px;
+
+    font-family: Google Sans Code Extrabold;
+    font-size: 30px;
+    color: $color3;
+}

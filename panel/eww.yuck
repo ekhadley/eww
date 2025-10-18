@@ -1,0 +1,46 @@
+(defwidget panel_clock []
+    (box :class "inside-container" 
+        :height 100
+        :width 200
+        (box :class "panel-clock-container"
+            (label :text "${time.hr}:${time.min}:${time.sec}")
+        )
+    )
+)
+
+(defwidget panel_static_text [text]
+    (box :class "inside-container" 
+        :height 50
+        :width 50
+        (box :class "panel-static-text-container"
+            (label :class "panel-static-text"
+                :text text
+            )
+        )
+
+    )
+)
+
+(defwidget panel []
+    (box :class "panel-container" :orientation "h" :space-evenly false :spacing 20
+        ; :width 500
+        ; :height 500
+        (box :orientation "v" :space-evenly false :spacing 20
+            (panel_clock)
+            (panel_static_text :text "")
+        )
+        (panel_static_text :text "")
+    )
+)
+
+
+(defwindow panel_window
+    :geometry (geometry
+        ; :width  "40%"
+        ; :height "50%"
+        :anchor "center"
+    )
+    :stacking "fg"
+    :focusable false
+    (panel)
+)
