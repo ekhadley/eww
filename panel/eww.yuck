@@ -9,7 +9,7 @@
 )
 
 (defwidget panel_static_text [text]
-    (box :class "inside-container" 
+    (box :class "inside-container"
         :height 50
         :width 50
         (box :class "panel-static-text-container"
@@ -21,15 +21,35 @@
     )
 )
 
+(defwidget colorscheme_display []
+    (box :class "inside-container"
+        :height 50
+        (box :class "colorscheme-container"
+            :halign "center"
+            :spacing 8
+            (label :class "color-dot-0" :text "●")
+            (label :class "color-dot-1" :text "●")
+            (label :class "color-dot-2" :text "●")
+            (label :class "color-dot-3" :text "●")
+            (label :class "color-dot-4" :text "●")
+            (label :class "color-dot-5" :text "●")
+            (label :class "color-dot-6" :text "●")
+            (label :class "color-dot-7" :text "●")
+            (label :class "color-dot-8" :text "●")
+        )
+    )
+)
+
+(defvar inner_panel_spacing 10)
 (defwidget panel []
-    (box :class "panel-container" :orientation "h" :space-evenly false :spacing 20
-        ; :width 500
-        ; :height 500
-        (box :orientation "v" :space-evenly false :spacing 20
+    (box :class "panel-container" :orientation "h" :space-evenly false :spacing inner_panel_spacing
+        (box :orientation "v" :space-evenly false :spacing inner_panel_spacing
             (panel_clock)
+            (colorscheme_display)
+        )
+        (box :orientation "h" :space-evenly false :spacing inner_panel_spacing
             (panel_static_text :text "")
         )
-        (panel_static_text :text "")
     )
 )
 

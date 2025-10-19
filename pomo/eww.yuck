@@ -1,8 +1,11 @@
 (defwidget pomo_clock []
     (box :class "pomo-clock-container"
+        :hexpand true
         :orientation "v"
         :valign "center"
-        ;(label :text "HELLO")
+        :halign "center"
+        :space-evenly false
+        :width 40
         (label :text "${time.hr}:${time.min}")
         (box :class "pomo-clock-date-container"
             (label :text "${time.mon} ${time.day}")
@@ -28,6 +31,7 @@
 )
 (defwidget pomo_progress [state current_time duration start]
     (circular-progress :class "pomo-progress"
+        :width 90
         :value "${state=='running' ? 100 - round(100*(current_time - start) / duration, 1):100}"
         :thickness 10
         :start-at 75
@@ -37,6 +41,7 @@
     (eventbox :class "pomo-timer-eventbox"
         :onclick "eww update pomo${id}_start=${current_time} pomo${id}_state=${state=='running' ? 'paused' : 'running'}"
         :onscroll "[ {} = up ] && eww update pomo${id}_duration=$(( ${duration} + 60 )) || eww update pomo${id}_duration=$(( ${duration} - 60 ))"
+        :hexpand true
         (overlay :class {state=='running' ? 'pomo-overlay-container-running' : 'pomo-overlay-container'}
             (pomo_progress
                 :state state
@@ -64,7 +69,9 @@
 
 (defwidget pomo_widget []
     (box :class "pomo-widget-container"
-        :halign "fill"
+        :space-evenly false
+        :width  420
+        :height 160
         (pomo_timer
             :id 1
             :state pomo1_state 
@@ -84,8 +91,6 @@
 
 (defwindow pomo_window
     :geometry (geometry
-        :width  "420px"
-        :height "160px"
         :x      "0px"
         :y      "15px"
         :anchor "top center")

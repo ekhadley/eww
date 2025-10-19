@@ -11,9 +11,24 @@ $bga: rgba($bg, 0.9);
 
 .inside-container {
     background-color: $bga;
-    border-radius: 40px;
+    border-radius: 20px;
 
     font-family: Google Sans Code Extrabold;
     font-size: 30px;
     color: $color3;
 }
+
+.colorscheme-container {
+    font-size: 30px;
+    padding-right: 24px;
+}
+
+.color-dot-0 { color: $color0; }
+.color-dot-1 { color: $color1; }
+.color-dot-2 { color: $color2; }
+.color-dot-3 { color: $color3; }
+.color-dot-4 { color: $color4; }
+.color-dot-5 { color: $color5; }
+.color-dot-6 { color: $color6; }
+.color-dot-7 { color: $color7; }
+.color-dot-8 { color: $color8; }
