@@ -11,7 +11,7 @@
 (defwidget panel_static_text [text]
     (box :class "inside-container"
         :height 50
-        :width 50
+        :width 150
         (box :class "panel-static-text-container"
             (label :class "panel-static-text"
                 :text text
@@ -42,7 +42,7 @@
 
 (defvar inner_panel_spacing 10)
 (defwidget panel []
-    (box :class "panel-container" :orientation "h" :space-evenly false :spacing inner_panel_spacing
+    (box :orientation "h" :space-evenly false :spacing inner_panel_spacing
         (box :orientation "v" :space-evenly false :spacing inner_panel_spacing
             (panel_clock)
             (colorscheme_display)
