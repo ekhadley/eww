@@ -1,3 +1,4 @@
+(include "../../.cache/wal/colors-eww.yuck")
 (include "./panel/eww.yuck")
 (include "./pomo/eww.yuck")
 

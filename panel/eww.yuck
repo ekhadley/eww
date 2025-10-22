@@ -8,18 +8,6 @@
     )
 )
 
-(defwidget panel_static_text [text]
-    (box :class "inside-container"
-        :height 50
-        :width 150
-        (box :class "panel-static-text-container"
-            (label :class "panel-static-text"
-                :text text
-            )
-        )
-
-    )
-)
 
 (defwidget colorscheme_display []
     (box :class "inside-container"
@@ -27,28 +15,43 @@
         (box :class "colorscheme-container"
             :halign "center"
             :spacing 8
-            (label :class "color-dot-0" :text "●")
-            (label :class "color-dot-1" :text "●")
-            (label :class "color-dot-2" :text "●")
-            (label :class "color-dot-3" :text "●")
-            (label :class "color-dot-4" :text "●")
-            (label :class "color-dot-5" :text "●")
-            (label :class "color-dot-6" :text "●")
-            (label :class "color-dot-7" :text "●")
-            (label :class "color-dot-8" :text "●")
+            (label :text "●" :style "color: ${color1}")
+            (label :text "●" :style "color: ${color1}")
+            (label :text "●" :style "color: ${color2}")
+            (label :text "●" :style "color: ${color3}")
+            (label :text "●" :style "color: ${color4}")
+            (label :text "●" :style "color: ${color5}")
+            (label :text "●" :style "color: ${color6}")
+            (label :text "●" :style "color: ${color7}")
         )
     )
 )
 
-(defvar inner_panel_spacing 10)
+(defwidget headphone_widget []
+    (box :class "inside-container"
+        :height 60
+        :width 80
+        (eventbox :class "panel-headphone-widget-eventbox"
+            :onclick "~/.local/bin/select_bt_audio_sink AC:BF:71:08:A1:D6"
+            (image :class "panel-headphone-widget-icon"
+                :path "/home/ek/.config/eww/assets/headphones-solid-full.svg"
+                :image-width 35
+                :image-height 35
+                :fill-svg "${color3}"
+            )
+        )
+    )
+)
+
 (defwidget panel []
-    (box :orientation "h" :space-evenly false :spacing inner_panel_spacing
-        (box :orientation "v" :space-evenly false :spacing inner_panel_spacing
+    (box :orientation "h" :space-evenly false :spacing 10
+        (box :orientation "v" :space-evenly false :spacing 10
             (panel_clock)
             (colorscheme_display)
         )
-        (box :orientation "h" :space-evenly false :spacing inner_panel_spacing
-            (panel_static_text :text "")
+        (box :orientation "v" :space-evenly true :spacing 10
+            (headphone_widget)
+            (headphone_widget)
         )
     )
 )
