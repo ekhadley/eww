@@ -29,11 +29,21 @@
 
 (defwidget headphone_widget []
     (box :class "inside-container"
-        :height 60
-        :width 80
+        :height 100
+        :width 100
         (eventbox :class "panel-headphone-widget-eventbox"
             :onclick "~/.local/bin/select_bt_audio_sink AC:BF:71:08:A1:D6"
             (label :class "panel-headphone-widget-icon" :text "" )
+        )
+    )
+)
+(defwidget speaker_widget []
+    (box :class "inside-container"
+        :height 100
+        :width 100
+        (eventbox :class "panel-headphone-widget-eventbox"
+            :onclick "~/.local/bin/select_bt_audio_sink EC:81:93:AC:8B:60"
+            (label :class "panel-headphone-widget-icon" :text "")
         )
     )
 )
@@ -58,7 +68,7 @@
         )
         (box :orientation "v" :space-evenly true :spacing 10
             (headphone_widget)
-            (headphone_widget)
+            (speaker_widget)
         )
     )
 )
