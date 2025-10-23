@@ -12,7 +12,11 @@ $bga: rgba($bg, 0.9);
 .inside-container {
     background-color: $bga;
     border-radius: 20px;
+    font-family: Google Sans Code Extrabold;
+    font-size: 30px;
+}
 
+.panel-clock-container {
     font-family: Google Sans Code Extrabold;
     font-size: 30px;
     color: $color4;
@@ -26,4 +30,9 @@ $bga: rgba($bg, 0.9);
 
 .panel-headphone-widget-icon {
     padding: 10px;
+}
+
+.system-info-container {
+    font-size: 12px;
+    // color: $color3;
 }

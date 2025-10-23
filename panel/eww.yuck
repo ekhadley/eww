@@ -43,11 +43,23 @@
     )
 )
 
+(defvar system_info_str "123")
+(defwidget system_widget []
+    (box :class "inside-container"
+        :height 100
+        :width 200
+        (box :class "system-info-container"
+            (label :text "${system_info_str}")
+        )
+    )
+)
+
 (defwidget panel []
     (box :orientation "h" :space-evenly false :spacing 10
         (box :orientation "v" :space-evenly false :spacing 10
             (panel_clock)
             (colorscheme_display)
+            (system_widget)
         )
         (box :orientation "v" :space-evenly true :spacing 10
             (headphone_widget)
