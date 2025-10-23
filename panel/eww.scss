@@ -29,7 +29,9 @@ $bga: rgba($bg, 0.9);
 }
 
 .panel-headphone-widget-icon {
-    padding: 10px;
+    font-family: "Font Awesome 7 Free";
+    font-size: 50px;
+    color: $color3;
 }
 
 .system-info-container {

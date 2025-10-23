@@ -33,12 +33,7 @@
         :width 80
         (eventbox :class "panel-headphone-widget-eventbox"
             :onclick "~/.local/bin/select_bt_audio_sink AC:BF:71:08:A1:D6"
-            (image :class "panel-headphone-widget-icon"
-                :path "/home/ek/.config/eww/assets/headphones.svg"
-                :image-width 35
-                :image-height 35
-                :fill-svg "${color3}"
-            )
+            (label :class "panel-headphone-widget-icon" :text "" )
         )
     )
 )
