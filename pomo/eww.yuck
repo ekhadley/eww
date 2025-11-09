@@ -63,7 +63,7 @@
 (defvar pomo1_start 0)
 (defvar pomo1_state "paused")
 
-(defvar pomo2_duration 600)
+(defvar pomo2_duration 900)
 (defvar pomo2_start 0)
 (defvar pomo2_state "paused")
 
