@@ -1,4 +1,4 @@
-sripts/zig/zig-out
-scripts/zig/.zig-cache
+zig/zig-out
+zig/.zig-cache
 .docs
 .claude
