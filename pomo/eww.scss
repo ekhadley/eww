@@ -1,15 +1,12 @@
 $bg: $background;
-$fg: $cursor;
 
-$c1: $color5;
-$c2: $color7;
+$color_active: $color5;
+$color_inactive: rgba($color_active, 0.3);
+$fg: $color4;
 
 .pomo_window {
     background-color: transparent;
-    // font-family: Arcane Nine;
     font-family: Google Sans Code Semibold;
-    // font-family: Quando;
-    // font-weight: 600;
     font-size: 24px;
 }
 .pomo-widget-container {
@@ -23,15 +20,15 @@ $c2: $color7;
 }
 .pomo-timer-eventbox {
     background-color: transparent;
-    color: rgba($c1, 0.5);
+    color: $color_inactive;
 }
 .pomo-timer-eventbox:hover {
     background-color: transparent;
-    color: $c2;
+    color: $color_active;
 }
 
 .pomo-overlay-container-running {
-    color: $c2;
+    color: $color_active;
 }
 
 .pomo-progress {
@@ -39,7 +36,7 @@ $c2: $color7;
     transition: color 0.14s ease-in-out
 }
 .pomo-progress-background {
-    color: rgba($c1, 0.3);
+    color: $color_inactive;
 }
 
 .pomo-timer-text {
@@ -55,6 +52,5 @@ $c2: $color7;
 }
 .pomo-clock-date-container {
     font-family: Google Sans Code;
-    // font-family: Quando;
     font-size: 16px;
 }
