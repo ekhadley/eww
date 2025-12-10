@@ -50,14 +50,11 @@ Each module has its own `eww.yuck` (widget definitions) and `eww.scss` (styling)
 
 ### Helper Scripts
 
-**Bash scripts** (in `scripts/bash_scripts/`):
-- Window toggle scripts query Hyprland for active screen using `hyprctl -j activeworkspace | jq -r '.monitorID'`
-- Then open Eww windows on that specific screen with `eww open [--toggle] <window> --screen $active_screen`
-
-**Zig utilities** (in `scripts/zig/`):
-- Built using Zig's build system with `build.zig`
-- Includes utilities like network monitor (`network.zig`) and bluetooth status (`bt.zig`)
-- Zig binaries are built to `scripts/zig/zig-out/bin/`
+**Bash scripts** (in `scripts/`):
+- `pomo_toggle.sh` / `panel_toggle.sh` - Toggle windows on active monitor
+- Uses Hyprland integration: `hyprctl -j activeworkspace | jq -r '.monitorID'`
+- Opens windows on correct screen: `eww open --toggle <window> --screen $active_screen`
+- `panel_toggle.sh` also populates `system_info_str` from fastfetch before opening
 
 ### Styling
 
@@ -87,17 +84,10 @@ eww state
 eww get <variable_name>
 ```
 
-### Build Zig Utilities
-```bash
-cd scripts/zig
-zig build
-# Outputs to scripts/zig/zig-out/bin/
-```
-
 ### Toggle Windows (with Hyprland integration)
 ```bash
-./scripts/bash_scripts/pomo_toggle.sh
-./scripts/bash_scripts/panel_toggle.sh
+./scripts/pomo_toggle.sh
+./scripts/panel_toggle.sh
 ```
 
 ## Development Workflow
@@ -105,8 +95,8 @@ zig build
 1. Edit `.yuck` files to modify widget structure and behavior
 2. Edit `.scss` files to change styling
 3. Run `eww reload` to see changes
-4. For Zig utilities, rebuild with `zig build` after changes
-5. Bash scripts require marking executable with `chmod +x` before use
+4. Check `eww logs` if widgets don't appear or behave unexpectedly
+5. Bash scripts require `chmod +x` before first use
 
 ## Important Notes
 
