@@ -6,9 +6,8 @@
     :interval "1s"
     :initial "{}"
     `date +'{
-        "hr":"%I",
-        "hour":"%-H",
         "hr":"%-I",
+        "hour":"%-H",
         "min":"%M",
         "sec":"%S",
         "s":"%s",
@@ -16,6 +15,8 @@
         "mon":"%b",
         "MON":"%^b",
         "day":"%d",
-        "year":"%Y"
+        "year":"%Y",
+        "dow":"%a",
+        "weekday":"%A"
     }'`
 )

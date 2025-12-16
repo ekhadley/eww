@@ -1,21 +1,102 @@
 (defwidget panel_clock []
     (box :class "inside-container" 
-        :height 100
         :width 200
-        (box :class "panel-clock-container"
-            (label :text "${time.hr}:${time.min}:${time.sec}")
+        :height 150
+        (box :orientation "v"
+            :valign "center"
+            :space-evenly false
+            :spacing 0
+            (box :class "panel-clock-container"
+                (label :text "${time.hr}:${time.min}:${time.sec}")
+            )
+            (box :class "panel-date-container"
+                (label :text "${time.month} ${time.day}")
+            )
         )
     )
 )
 
+; Pomodoro timer widgets for panel
+(defwidget panel_pomo_text [seconds]
+    (box :class "panel-pomo-timer-text-container"
+        :orientation "h"
+        :valign "center"
+        :halign "center"
+        (label :class "panel-pomo-timer-text"
+            :text "${floor(seconds/60)}:${seconds%60<10?'0':''}${seconds % 60 < 0 ? 0 : seconds % 60}"
+        )
+    )
+)
+
+(defwidget panel_pomo_progress [state current_time duration start]
+    (circular-progress :class "panel-pomo-progress"
+        :width 120
+        :value "${state=='running' ? 100 - round(100*(current_time - start) / duration, 1):100}"
+        :thickness 6
+        :start-at 75
+    )
+)
+
+(defwidget panel_pomo_timer [id state current_time duration start]
+    (eventbox :class "panel-pomo-timer-eventbox"
+        :onclick "eww update panel_pomo${id}_start=${current_time} panel_pomo${id}_state=${state=='running' ? 'paused' : 'running'}"
+        :onscroll "[ {} = up ] && eww update panel_pomo${id}_duration=$(( ${duration} + 60 )) || eww update panel_pomo${id}_duration=$(( ${duration} - 60 ))"
+        (overlay :class {state=='running' ? 'panel-pomo-overlay-running' : 'panel-pomo-overlay'}
+            (panel_pomo_progress
+                :state state
+                :current_time current_time
+                :duration duration
+                :start start
+            )
+            (circular-progress :class "panel-pomo-progress-bg"
+                :value "100"
+                :thickness 6
+                :width 100
+            )
+            (panel_pomo_text
+                :seconds "${state=='running' ? duration - current_time + start : duration}"
+            )
+        )
+    )
+)
+
+(defvar panel_pomo1_duration 3600)
+(defvar panel_pomo1_start 0)
+(defvar panel_pomo1_state "paused")
+
+(defvar panel_pomo2_duration 900)
+(defvar panel_pomo2_start 0)
+(defvar panel_pomo2_state "paused")
+
+(defwidget panel_pomo_widget []
+    (box :class "inside-container panel-pomo-container"
+        :orientation "v"
+        :space-evenly true
+        :spacing 10
+        (panel_pomo_timer
+            :id 1
+            :state panel_pomo1_state 
+            :current_time "${time.s}"
+            :duration panel_pomo1_duration
+            :start panel_pomo1_start
+        )
+        (panel_pomo_timer
+            :id 2
+            :state panel_pomo2_state
+            :current_time "${time.s}"
+            :duration panel_pomo2_duration
+            :start panel_pomo2_start
+        )
+    )
+)
 
 (defwidget colorscheme_display []
     (box :class "inside-container"
-        :height 50
+        :height 75
         (box :class "colorscheme-container"
             :halign "center"
-            :spacing 8
-            (label :text "●" :style "color: ${color1}")
+            :valign "center"
+            :spacing 10
             (label :text "●" :style "color: ${color1}")
             (label :text "●" :style "color: ${color2}")
             (label :text "●" :style "color: ${color3}")
@@ -23,56 +104,55 @@
             (label :text "●" :style "color: ${color5}")
             (label :text "●" :style "color: ${color6}")
             (label :text "●" :style "color: ${color7}")
+            (label :text "●" :style "color: ${color8}")
         )
     )
 )
 
-(defwidget headphone_widget []
+; Audio device polling
+(defpoll audio_is_headphones :interval "1s"
+    `pactl get-default-sink | grep -q "AC_BF_71_08_A1_D6" && echo "true" || echo "false"`)
+
+(defpoll audio_muted :interval "1s"
+    `pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes && echo "true" || echo "false"`)
+
+(defwidget audio_toggle_widget []
     (box :class "inside-container"
         :height 100
         :width 100
-        (eventbox :class "panel-headphone-widget-eventbox"
-            :onclick "~/.local/bin/select_bt_audio_sink AC:BF:71:08:A1:D6"
-            (label :class "panel-headphone-widget-icon" :text "" )
-        )
-    )
-)
-(defwidget speaker_widget []
-    (box :class "inside-container"
-        :height 100
-        :width 100
-        (eventbox :class "panel-headphone-widget-eventbox"
-            :onclick "~/.local/bin/select_bt_audio_sink EC:81:93:AC:8B:60"
-            (label :class "panel-headphone-widget-icon" :text "")
+        (eventbox :class "panel-audio-widget-eventbox"
+            :onclick "~/wgmn/scripts/select_bt_audio_sink ${audio_is_headphones == 'true' ? 'EC:81:93:AC:8B:60' : 'AC:BF:71:08:A1:D6'}"
+            (label :class "panel-audio-widget-icon panel-audio-toggle-icon" 
+                :text {audio_is_headphones == "true" ? "" : ""})
         )
     )
 )
 
-(defvar system_info_str "123")
-(defwidget system_widget []
+(defwidget mute_toggle_widget []
     (box :class "inside-container"
         :height 100
-        :width 200
-        (box :class "system-info-container"
-            (label :text "${system_info_str}")
+        :width 100
+        (eventbox :class "panel-audio-widget-eventbox"
+            :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+            (label :class "panel-audio-widget-icon panel-mute-toggle-icon ${audio_muted == 'true' ? 'muted' : ''}" 
+                :text {audio_muted == "true" ? "" : ""})
         )
     )
 )
 
 (defwidget panel []
     (box :orientation "h" :space-evenly false :spacing 10
+        (panel_pomo_widget)
         (box :orientation "v" :space-evenly false :spacing 10
             (panel_clock)
             (colorscheme_display)
-            (system_widget)
         )
         (box :orientation "v" :space-evenly true :spacing 10
-            (headphone_widget)
-            (speaker_widget)
+            (audio_toggle_widget)
+            (mute_toggle_widget)
         )
     )
 )
-
 
 (defwindow panel_window
     :geometry (geometry
