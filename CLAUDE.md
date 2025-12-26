@@ -11,7 +11,11 @@ This is an Eww (ElKowar's Wacky Widgets) configuration for creating custom widge
 - `configuration.md` - Configuration guide
 - `working_with_gtk.md` - GTK theming info
 - `expression_language.md` - Expression syntax
-- Other reference files
+- `magic-vars.md` - Magic variables reference
+- `examples.md` - Example configurations
+- `troubleshooting.md` - Common issues and solutions
+- `eww.md` - General overview
+- `SUMMARY.md` - Documentation index
 
 ## IMPORTANT: Maintain This Documentation
 
@@ -48,6 +52,7 @@ Each module has its own `eww.yuck` (widget definitions) and `eww.scss` (styling)
 - `time.year` - Year
 - `time.dow` - Abbreviated day of week (e.g., "Tue")
 - `time.weekday` - Full day of week (e.g., "Tuesday")
+- `time.MON` - Uppercase abbreviated month (e.g., "DEC")
 
 **Windows**:
 - `panel_window` - Centered overlay with clock, date, pomodoro timers, colorscheme dots, and audio controls
@@ -76,11 +81,12 @@ Each module has its own `eww.yuck` (widget definitions) and `eww.scss` (styling)
 
 **Bash scripts** (in `scripts/`):
 - `pomo_toggle.sh` / `panel_toggle.sh` - Toggle windows on active monitor
+- `pomo_show.sh` - Opens pomo_window on active screen (non-toggle, always opens)
+- `pomo_click_handler.sh` - Alternative click handler with `at` scheduling (WIP/incomplete)
 - Uses Hyprland integration: `hyprctl -j activeworkspace | jq -r '.monitorID'`
 - Opens windows on correct screen: `eww open --toggle <window> --screen $active_screen`
-- `panel_toggle.sh` also populates `system_info_str` from fastfetch before opening
 
-**External script** (`~/wgmn/scripts/select_bt_audio_sink`):
+**External script** (`~/wgmn/scripts/select_bt_audio_sink.sh`):
 - Switches Bluetooth audio devices
 - Checks if device is already connected before attempting connection
 - Uses 5-second timeout to avoid hanging on unreachable devices

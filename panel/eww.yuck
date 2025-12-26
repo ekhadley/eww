@@ -23,7 +23,7 @@
         :valign "center"
         :halign "center"
         (label :class "panel-pomo-timer-text"
-            :text "${floor(seconds/60)}:${seconds%60<10?'0':''}${seconds % 60 < 0 ? 0 : seconds % 60}"
+            :text "${seconds < 0 ? '-' : ''}${floor((seconds < 0 ? -seconds : seconds) / 60)}:${(seconds < 0 ? -seconds : seconds) % 60 < 10 ? '0' : ''}${(seconds < 0 ? -seconds : seconds) % 60}"
         )
     )
 )
@@ -121,7 +121,7 @@
         :height 100
         :width 100
         (eventbox :class "panel-audio-widget-eventbox"
-            :onclick "~/wgmn/scripts/select_bt_audio_sink ${audio_is_headphones == 'true' ? 'EC:81:93:AC:8B:60' : 'AC:BF:71:08:A1:D6'}"
+            :onclick "~/wgmn/scripts/select_bt_audio_sink.sh ${audio_is_headphones == 'true' ? 'EC:81:93:AC:8B:60' : 'AC:BF:71:08:A1:D6'}"
             (label :class "panel-audio-widget-icon panel-audio-toggle-icon" 
                 :text {audio_is_headphones == "true" ? "" : ""})
         )

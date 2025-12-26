@@ -23,9 +23,9 @@
         :orientation "v"
         :valign "center"
         (label :class "pomo-timer-text"
-            :text "${floor(seconds/60)}"
+            :text "${seconds < 0 ? '-' : ''}${floor((seconds < 0 ? -seconds : seconds) / 60)}"
         ) (label :class "pomo-timer-text"
-            :text "${seconds%60<10?'0':''}${seconds % 60 < 0 ? 0 : seconds % 60}"
+            :text "${(seconds < 0 ? -seconds : seconds) % 60 < 10 ? '0' : ''}${(seconds < 0 ? -seconds : seconds) % 60}"
         )
     )
 )
